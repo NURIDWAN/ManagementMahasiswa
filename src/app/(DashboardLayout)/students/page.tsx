@@ -26,7 +26,9 @@ import withReactContent from 'sweetalert2-react-content'
 
 const MySwal = withReactContent(Swal)
 
-export default function StudentsPage() {
+import { Suspense } from "react"
+
+function StudentsContent() {
     const [students, setStudents] = useState<Student[]>([])
     const [filteredStudents, setFilteredStudents] = useState<Student[]>([])
     const [isLoading, setIsLoading] = useState(true)
@@ -194,5 +196,13 @@ export default function StudentsPage() {
                 />
             )}
         </div>
+    )
+}
+
+export default function StudentsPage() {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <StudentsContent />
+        </Suspense>
     )
 }

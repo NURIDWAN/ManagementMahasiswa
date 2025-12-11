@@ -24,7 +24,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import { Student } from "./StudentColumns"
+import { Student } from "@/lib/oop/Student"
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 
@@ -65,7 +65,7 @@ export function StudentForm({ initialData, onSuccess }: StudentFormProps) {
     });
 
     const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
+        resolver: zodResolver(formSchema) as any,
         defaultValues: initialData ? {
             name: initialData.name,
             student_id: initialData.student_id,
