@@ -6,14 +6,70 @@ const prisma = new PrismaClient();
 export class StudentManager {
     // Database operations
     async createStudent(data: any): Promise<Student> {
+        let jurusanId = data.major;
+        let falkutasId = data.faculty;
+
+        // Check if major is a name (not an ObjectId)
+        const isObjectId = (id: string) => /^[0-9a-fA-F]{24}$/.test(id);
+
+        if (!isObjectId(jurusanId)) {
+            const jurusan = await prisma.jurusan.findFirst({
+                where: {
+                    nama: {
+                        equals: jurusanId,
+                        mode: 'insensitive'
+                    }
+                }
+            });
+
+            if (jurusan) {
+                jurusanId = jurusan.id;
+                // If faculty is not provided or invalid, use the one from the major
+                if (!falkutasId || !isObjectId(falkutasId)) {
+                    falkutasId = jurusan.falkutasId;
+                }
+            } else {
+                // Try to find "Manajement" if "Manajemen" is passed (handling specific typo in DB)
+                if (jurusanId.toLowerCase() === 'manajemen') {
+                    const typoJurusan = await prisma.jurusan.findFirst({
+                        where: { nama: 'Manajement' }
+                    });
+                    if (typoJurusan) {
+                        jurusanId = typoJurusan.id;
+                        if (!falkutasId || !isObjectId(falkutasId)) {
+                            falkutasId = typoJurusan.falkutasId;
+                        }
+                    } else {
+                        throw new Error(`Major '${data.major}' not found.`);
+                    }
+                } else {
+                    throw new Error(`Major '${data.major}' not found.`);
+                }
+            }
+        }
+
+        // If faculty is still missing/invalid and we have a name, try to find it
+        if ((!falkutasId || !isObjectId(falkutasId)) && data.faculty) {
+            const falkutas = await prisma.falkutas.findFirst({
+                where: { nama: data.faculty }
+            });
+            if (falkutas) {
+                falkutasId = falkutas.id;
+            }
+        }
+
+        if (!jurusanId || !falkutasId) {
+            throw new Error(`Invalid Major or Faculty. Major: ${data.major}, Faculty: ${data.faculty}`);
+        }
+
         const student = await prisma.student.create({
             data: {
                 nama: data.name,
                 nim: data.student_id,
                 email: data.email,
                 semester: data.semester,
-                jurusanId: data.major, // Assuming major is passed as ID
-                falkutasId: data.faculty, // Assuming faculty is passed as ID
+                jurusanId: jurusanId,
+                falkutasId: falkutasId,
             },
             include: {
                 jurusan: true,

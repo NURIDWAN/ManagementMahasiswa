@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Download, Upload, Loader2 } from "lucide-react"
+import { Download, Upload, Loader2, FileText } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
     Dialog,
@@ -13,8 +13,15 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { Student } from "@/lib/oop/Student"
+import { generateStudentPdf } from "@/lib/pdf-generator"
 
-export function StudentImportExport({ onSuccess }: { onSuccess: () => void }) {
+interface StudentImportExportProps {
+    onSuccess: () => void
+    students?: Student[]
+}
+
+export function StudentImportExport({ onSuccess, students }: StudentImportExportProps) {
     const [isImporting, setIsImporting] = useState(false)
     const [importResult, setImportResult] = useState<any>(null)
 
@@ -34,6 +41,16 @@ export function StudentImportExport({ onSuccess }: { onSuccess: () => void }) {
             URL.revokeObjectURL(url)
         } catch (error) {
             console.error("Export failed", error)
+        }
+    }
+
+    const handleExportPdf = () => {
+        if (students && students.length > 0) {
+            generateStudentPdf(students)
+        } else {
+            // Fallback to fetch if no students prop (though we plan to pass it)
+            // Or just alert if empty
+            alert("No students to export")
         }
     }
 
@@ -72,7 +89,11 @@ export function StudentImportExport({ onSuccess }: { onSuccess: () => void }) {
     }
 
     return (
-        <div className="flex space-x-2">
+        <div className="flex flex-col sm:flex-row gap-2 sm:space-x-2">
+            <Button variant="outline" onClick={handleExportPdf}>
+                <FileText className="mr-2 h-4 w-4" />
+                Export PDF
+            </Button>
             <Button variant="outline" onClick={handleExport}>
                 <Download className="mr-2 h-4 w-4" />
                 Export JSON

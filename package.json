@@ -34,6 +34,8 @@
     "flowbite": "2.3.0",
     "flowbite-react": "0.10.1",
     "jsonwebtoken": "^9.0.2",
+    "jspdf": "^3.0.4",
+    "jspdf-autotable": "^5.0.2",
     "lodash": "4.17.21",
     "lucide-react": "^0.556.0",
     "moment": "2.29.4",

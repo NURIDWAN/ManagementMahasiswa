@@ -72,17 +72,17 @@ export function StudentTable<TData, TValue>({
 
     return (
         <div className="w-full">
-            <div className="flex items-center py-4">
+            <div className="flex flex-col md:flex-row items-start md:items-center py-4 gap-4">
                 <Input
                     placeholder="Search students..."
                     onChange={(event) =>
                         onSearch ? onSearch(event.target.value) : table.getColumn("name")?.setFilterValue(event.target.value)
                     }
-                    className="max-w-sm"
+                    className="w-full md:max-w-sm"
                 />
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <Button variant="outline" className="ml-auto">
+                        <Button variant="outline" className="ml-auto w-full md:w-auto">
                             Columns <ChevronDown className="ml-2 h-4 w-4" />
                         </Button>
                     </DropdownMenuTrigger>
@@ -107,7 +107,7 @@ export function StudentTable<TData, TValue>({
                     </DropdownMenuContent>
                 </DropdownMenu>
             </div>
-            <div className="rounded-md border">
+            <div className="rounded-md border overflow-x-auto">
                 <Table>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (

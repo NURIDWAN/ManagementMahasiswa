@@ -151,15 +151,15 @@ function StudentsContent() {
 
     return (
         <div className="space-y-8">
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
                 <h2 className="text-3xl font-bold tracking-tight">Students</h2>
-                <div className="flex space-x-2">
+                <div className="flex flex-col md:flex-row w-full md:w-auto gap-2 md:space-x-2">
                     <AlgorithmControls
                         onSort={handleSort}
                         onSearch={handleSearch}
                         executionTime={executionTime}
                     />
-                    <StudentImportExport onSuccess={fetchStudents} />
+                    <StudentImportExport onSuccess={fetchStudents} students={filteredStudents} />
                     <Dialog open={isDialogOpen} onOpenChange={(open) => {
                         setIsDialogOpen(open)
                         if (!open) {
