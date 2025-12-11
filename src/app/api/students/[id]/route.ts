@@ -11,16 +11,17 @@ const studentSchema = z.object({
     email: z.string().email('Invalid email'),
 });
 
-export async function GET(request: Request, { params }: { params: { id: string } }) {
+export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
     // Not implemented in Manager yet, returning 501
     return NextResponse.json({ error: 'Not implemented' }, { status: 501 });
 }
 
 export async function PUT(
     request: Request,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
+        const { id } = await params;
         const body = await request.json();
 
         // Validate input
@@ -33,7 +34,7 @@ export async function PUT(
         }
 
         const studentManager = new StudentManager();
-        const updatedStudent = await studentManager.updateStudent(params.id, result.data);
+        const updatedStudent = await studentManager.updateStudent(id, result.data);
 
         if (!updatedStudent) {
             return NextResponse.json(
@@ -53,11 +54,12 @@ export async function PUT(
 
 export async function DELETE(
     request: Request,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
+        const { id } = await params;
         const studentManager = new StudentManager();
-        const success = await studentManager.deleteStudent(params.id);
+        const success = await studentManager.deleteStudent(id);
 
         if (!success) {
             return NextResponse.json(

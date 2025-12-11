@@ -6,9 +6,9 @@ import bcrypt from 'bcryptjs';
 export async function POST(request: Request) {
     try {
         await dbConnect();
-        const { name, email, password } = await request.json();
+        const { fullname, email, password } = await request.json();
 
-        if (!name || !email || !password) {
+        if (!fullname || !email || !password) {
             return NextResponse.json({ error: 'Missing fields' }, { status: 400 });
         }
 
@@ -20,9 +20,9 @@ export async function POST(request: Request) {
         const password_hash = await bcrypt.hash(password, 10);
 
         const user = await User.create({
-            name,
+            fullname,
             email,
-            password_hash,
+            password: password_hash,
         });
 
         return NextResponse.json({ message: 'User created successfully' }, { status: 201 });
