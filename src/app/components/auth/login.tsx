@@ -33,7 +33,7 @@ export const Login = () => {
     async function handleLogin() {
         setIsLoading(true);
         try {
-            const response = await fetch("/api/user/login", {
+            const response = await fetch("/api/auth/login", {
                 method: "POST",
                 headers: { "content-type": "application/json" },
                 body: JSON.stringify(userInfo),
@@ -117,13 +117,13 @@ export const Login = () => {
                         <div className="flex flex-col gap-2 items-start">
                             <div className="flex items-start gap-2">
                                 <span className="font-semibold">Demo Email:</span>
-                                <p className="text-sm">admin@gmail.com</p>
+                                <p className="text-sm">admin@example.com</p>
                             </div>
                         </div>
                         <div className="flex flex-col gap-2 items-start">
                             <div className="flex items-start gap-2">
                                 <span className="font-semibold">Demo password:</span>
-                                <p className="text-sm">12345</p>
+                                <p className="text-sm">password123</p>
                             </div>
                         </div>
                     </div>
