@@ -50,8 +50,7 @@ const config: Config = {
           "600": "var(--color-primary)",
           "700": "var(--color-primary)",
         },
-        primary: "var(--color-primary)",
-        secondary: "var(--color-secondary)",
+
         info: "var(--color-info)",
         success: "var(--color-success)",
         warning: "var(--color-warning)",
@@ -62,10 +61,10 @@ const config: Config = {
         lighterror: "var(--color-lighterror)",
         lightinfo: "var(--color-lightinfo)",
         lightwarning: "var(--color-lightwarning)",
-        border: "var(--color-border)",
+
         bordergray: "var(--color-bordergray)",
         lightgray: "var( --color-lightgray)",
-        muted: "var(--color-muted)",
+
         bodytext: "var(--color-bodytext)",
         dark: "var(--color-dark)",
         link: "var(--color-link)",
