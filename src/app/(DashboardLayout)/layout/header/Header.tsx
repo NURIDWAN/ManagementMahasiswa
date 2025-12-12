@@ -67,7 +67,9 @@ const Header = () => {
           </span>
           {/* Toggle Icon   */}
           <Navbar.Collapse className="xl:block ">
-            <div className="flex gap-0 items-center relative">
+            <div className="flex gap-2 items-center relative">
+              {/* Dark Mode Toggle */}
+              <DarkThemeToggle />
               {/* Chat */}
               <Notifications />
             </div>

@@ -29,6 +29,46 @@
     --color-lightsecondary:#49BEFF20;
     --color-purple:117, 45, 224;
     --color-algaegreen: 18, 161, 113; 
+
+    /* Shadcn/UI Semantic Colors */
+    --background: #ffffff;
+    --foreground: #202936;
+    --card: #ffffff;
+    --card-foreground: #202936;
+    --popover: #ffffff;
+    --popover-foreground: #202936;
+    --primary-foreground: #ffffff;
+    --secondary-foreground: #202936;
+    --muted-foreground: #5a6a85;
+    --accent: #f6f9fc;
+    --accent-foreground: #202936;
+    --destructive: #FA896B;
+    --destructive-foreground: #ffffff;
+    --input: #ebf1f6;
+    --ring: #539BFF;
+    --radius: 0.5rem;
+}
+
+.dark {
+    --background: #202936;
+    --foreground: #ffffff;
+    --card: #202936;
+    --card-foreground: #ffffff;
+    --popover: #202936;
+    --popover-foreground: #ffffff;
+    --primary: #539BFF;
+    --primary-foreground: #ffffff;
+    --secondary: #2a3547;
+    --secondary-foreground: #ffffff;
+    --muted: #2a3547;
+    --muted-foreground: #7c8fac;
+    --accent: #2a3547;
+    --accent-foreground: #ffffff;
+    --destructive: #FA896B;
+    --destructive-foreground: #ffffff;
+    --border: #333f55;
+    --input: #333f55;
+    --ring: #539BFF;
 }
 
 
